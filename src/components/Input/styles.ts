@@ -10,6 +10,8 @@ export const Container = styled.View`
   align-items: center;
   padding: 0px 25px;
 
+  overflow: hidden;
+  border-radius: 10px;
   background-color: ${({ theme }) => theme.colors.input};
 `;
 
