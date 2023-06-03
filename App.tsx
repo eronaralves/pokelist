@@ -5,6 +5,9 @@ import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/
 import { ThemeProvider } from 'styled-components/native'
 import { defaultTheme } from '@theme/defaultTheme';
 
+// Screens
+import { Home } from '@screens/Home';
+
 
 export default function App() {
   const [ fontsLoaded ] = useFonts({
@@ -14,8 +17,12 @@ export default function App() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <StatusBar />
-      {fontsLoaded ? <View /> : <View/>}
+      <StatusBar 
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent
+      />
+      {fontsLoaded ? <Home /> : <View/>}
     </ThemeProvider>
   );
 }
