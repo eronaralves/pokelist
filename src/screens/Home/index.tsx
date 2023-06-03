@@ -1,19 +1,18 @@
-import { View } from "react-native";
+import React from 'react';
 
 // Styles
 import {
   Container,
-  Heading,
-  Subtitle
-} from './styles'
+  Title,
+  Description
+} from './styles';
 
-// components
-import { Header } from "@components/Header";
 
 export function Home() {
   return (
     <Container>
-      <Header />
+      <Title>Pokédex</Title>
+      <Description>Search for Pokémon by name or using the National Pokédex number.</Description>
     </Container>
-  )
+  );
 }
