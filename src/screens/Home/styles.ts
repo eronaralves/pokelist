@@ -4,11 +4,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
-  padding-right: 40px;
-  padding-left: 40px;
-
   background-color: ${({ theme }) => theme.colors.background};
 `;
+
+export const Header = styled.ImageBackground`
+  padding: 100px 20px 0px 20px;
+`
 
 export const Title = styled.Text`
   ${({ theme }) => css`
@@ -16,6 +17,8 @@ export const Title = styled.Text`
     font-size: ${theme.font_size['2xl']}px;
     color: ${theme.colors.heading};
   `};
+
+  margin-bottom: 10px;
 `;
 
 export const Description = styled.Text`
@@ -24,4 +27,6 @@ export const Description = styled.Text`
     font-size: ${theme.font_size.md}px;
     color: ${theme.colors.text};
   `};
+
+  margin-bottom: 25px;
 `;

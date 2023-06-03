@@ -2,7 +2,7 @@
 
 export const light = {
   colors: {
-    background: '#E5E5E5',
+    background: '#FFFFFF',
 
     heading: '#17171B',
     text: '#747476',
