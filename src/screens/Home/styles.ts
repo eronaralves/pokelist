@@ -9,12 +9,17 @@ export const Container = styled(SafeAreaView)`
 
 export const Header = styled.ImageBackground`
   padding: 100px 20px 0px 20px;
-`
+`;
+
+export const Content = styled.View`
+  flex: 1;
+  padding: 0px 20px 0px 20px;
+`;
 
 export const Title = styled.Text`
   ${({ theme }) => css`
     font-family: ${theme.font_family.bold};
-    font-size: ${theme.font_size['2xl']}px;
+    font-size: ${theme.font_size['3xl']}px;
     color: ${theme.colors.heading};
   `};
 
