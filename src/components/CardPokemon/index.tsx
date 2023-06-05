@@ -8,7 +8,7 @@ import PokeballCard from '../../assets/images/pokeball-card.png';
 import * as S from './styles';
 
 // Ultils
-import { TYPES } from '../../ultils/types';
+import { POKEMON_TYPES } from '../../ultils/types';
 
 // Interfaces
 export interface CardPokemonProps {
@@ -16,7 +16,7 @@ export interface CardPokemonProps {
   numberPokedex: string;
   image: string;
   types: {
-    name: keyof typeof TYPES;
+    name: keyof typeof POKEMON_TYPES;
   }[]
 }
 
@@ -40,7 +40,7 @@ export function CardPokemon({ name, numberPokedex, image, types }: CardPokemonPr
           keyExtractor={item => item.name}
           renderItem={({ item }) => (
             <S.Type type={item.name}>
-              {TYPES[item.name].icon}
+              {POKEMON_TYPES[item.name].icon}
               <S.TextType>{item.name}</S.TextType>
             </S.Type>
           )}

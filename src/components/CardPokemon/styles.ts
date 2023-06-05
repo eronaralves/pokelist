@@ -2,14 +2,14 @@ import { TouchableOpacity } from "react-native";
 import styled, { css } from "styled-components/native";
 
 // Ultils
-import { TYPES } from "../../ultils/types";
+import { POKEMON_TYPES } from "../../ultils/types";
 
 // Icons
 import { Leaf } from "phosphor-react-native";
 
 // Interfaces
 export interface TypesProps {
-  type: keyof typeof TYPES;
+  type: keyof typeof POKEMON_TYPES;
 };
 
 
@@ -22,7 +22,7 @@ export const Container = styled(TouchableOpacity)<TypesProps>`
   padding: 20px;
   margin-bottom: 30px;
   border-radius: 10px;
-  background-color: ${({ type }) => TYPES[type].background };
+  background-color: ${({ type }) => POKEMON_TYPES[type].background };
 `;
 
 export const DetailsPatterns = styled.Image`
@@ -67,7 +67,7 @@ export const Type = styled.View<TypesProps>`
   margin-right: 5px;
 
   border-radius: 3px;
-  background-color: ${({ type }) => TYPES[type].color };
+  background-color: ${({ type }) => POKEMON_TYPES[type].color };
   
 `;
 

@@ -12,27 +12,27 @@ import {
 } from 'phosphor-react-native';
 
 // Interfaces
-interface Type {
+interface TypeProps {
   background: string;
   color: string;
   icon: any
 };
 
 interface Types {
-  Poison: Type;
-  Grass: Type;
-  Fire: Type;
-  Water: Type;
-  Normal: Type;
-  Bug: Type;
-  Ground: Type;
-  Fighting: Type;
-  Fairy: Type;
-  Electric: Type;
+  Poison: TypeProps;
+  Grass: TypeProps;
+  Fire: TypeProps;
+  Water: TypeProps;
+  Normal: TypeProps;
+  Bug: TypeProps;
+  Ground: TypeProps;
+  Fighting: TypeProps;
+  Fairy: TypeProps;
+  Electric: TypeProps;
 };
 
 
-export const TYPES = {
+export const POKEMON_TYPES = {
   Poison: {
     background: '#9F6E97',
     color: '#A552CC',
