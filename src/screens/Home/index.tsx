@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FlatList, Text, ActivityIndicator, View } from 'react-native';
 
-import axios from 'axios';
-
 // Images
 import PokeBall from '../../assets/images/Pokeball.png'
 
@@ -13,31 +11,33 @@ import * as S from './styles';
 import { CardPokemon, CardPokemonProps } from '@components/CardPokemon';
 import { Input } from '@components/Input';
 
+// Axios
+import { api } from '../../lib/axios';
+
 
 export function Home() {
   const [pokemons, setPokemons] = useState<CardPokemonProps[]>([]);
   const [searchPokemon, setSearchPokemon] = useState('');
 
   async function fecthPokemons() {
-    let endpoints = []
-    for(var pokemonId = 1; pokemonId <= 30; pokemonId++) {
-      endpoints.push(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
-    }
+    const response = await api.get('pokemon')
+    const data = response.data
 
-    const detailsPokemons = await axios.all(endpoints.map(endpoint => axios.get(endpoint)))
+    const listPokemons = data.results.map(async (item: any) => {
+      const responsePokemonDetails = await api.get(`pokemon/${item.name}`)
+      const details = responsePokemonDetails.data
 
-    const pokemonWithDetails = detailsPokemons.map(item => {
       const pokemon:CardPokemonProps = {
-        name: item.data.name,
-        image: item.data.sprites.other['official-artwork'].front_default,
-        numberPokedex: String(item.data.id),
-        types: item.data.types
+        name: details.name,
+        image: details.sprites.other['official-artwork'].front_default,
+        numberPokedex: String(details.id),
+        types: details.types
       }
-
-      setPokemons(state => [...state, pokemon])
+      
+      return setPokemons(state => [...state, pokemon])
     })
 
-    return pokemonWithDetails;
+    return listPokemons
   }
 
   useEffect(() => {
