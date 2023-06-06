@@ -16,6 +16,7 @@ import { Input } from '@components/Input';
 
 export function Home() {
   const [pokemons, setPokemons] = useState<CardPokemonProps[]>([]);
+  const [searchPokemon, setSearchPokemon] = useState('');
 
   async function fecthPokemons() {
     let endpoints = []
@@ -44,6 +45,8 @@ export function Home() {
   }, [])
 
 
+  const filterPokemons = pokemons.filter(pokemon => pokemon.name.startsWith(searchPokemon))
+
   return (
     <S.Container>
       <S.Header
@@ -54,12 +57,14 @@ export function Home() {
         <S.Description>Search for Pokémon by name or using the National Pokédex number.</S.Description>
         <Input 
           placeholder='What Pokémon are you looking for?'
+          onChangeText={setSearchPokemon}
+          value={searchPokemon}
         />
       </S.Header>
       <S.Content>
         {pokemons.length > 0 ? (
           <FlatList
-            data={pokemons}
+            data={filterPokemons}
             keyExtractor={pokemon => pokemon.name}
             renderItem={({ item }) => (
               <CardPokemon 
