@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { FlatList, Text } from 'react-native';
+import { useEffect, useState } from 'react';
+import { FlatList, Text, ActivityIndicator, View } from 'react-native';
+
+import axios from 'axios';
 
 // Images
 import PokeBall from '../../assets/images/Pokeball.png'
@@ -15,6 +17,33 @@ import { Input } from '@components/Input';
 export function Home() {
   const [pokemons, setPokemons] = useState<CardPokemonProps[]>([]);
 
+  async function fecthPokemons() {
+    let endpoints = []
+    for(var pokemonId = 1; pokemonId <= 30; pokemonId++) {
+      endpoints.push(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
+    }
+
+    const detailsPokemons = await axios.all(endpoints.map(endpoint => axios.get(endpoint)))
+
+    const pokemonWithDetails = detailsPokemons.map(item => {
+      const pokemon:CardPokemonProps = {
+        name: item.data.name,
+        image: item.data.sprites.other['official-artwork'].front_default,
+        numberPokedex: String(item.data.id),
+        types: item.data.types
+      }
+
+      setPokemons(state => [...state, pokemon])
+    })
+
+    return pokemonWithDetails;
+  }
+
+  useEffect(() => {
+    fecthPokemons()
+  }, [])
+
+
   return (
     <S.Container>
       <S.Header
@@ -28,9 +57,10 @@ export function Home() {
         />
       </S.Header>
       <S.Content>
-        <FlatList
+        {pokemons.length > 0 ? (
+          <FlatList
             data={pokemons}
-            keyExtractor={pokemon => pokemon.numberPokedex}
+            keyExtractor={pokemon => pokemon.name}
             renderItem={({ item }) => (
               <CardPokemon 
                 name={item.name}
@@ -40,14 +70,13 @@ export function Home() {
               />
             )}
             ListEmptyComponent={() => (
-              <Text>Nada encotrado!</Text>
+              <Text>Nenhum pokemon encontrado!</Text>
             )}
             contentContainerStyle={
               pokemons.length > 0 ?
               {
-                marginTop: 30,
                 paddingTop: 20,
-                paddingBottom: 100
+                paddingBottom: 100,
               } :
               {
                 flex: 1,
@@ -57,6 +86,12 @@ export function Home() {
             }
             showsVerticalScrollIndicator={false}
           />
+        ): (
+          <S.ContainerLoading>
+            <ActivityIndicator />
+          </S.ContainerLoading>
+        )}
+        
       </S.Content>
     </S.Container>
   );

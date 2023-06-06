@@ -11,17 +11,24 @@ import * as S from './styles';
 import { POKEMON_TYPES } from '../../ultils/types';
 
 // Interfaces
+
+
 export interface CardPokemonProps {
   name: string;
-  numberPokedex: string;
+  numberPokedex?: string;
   image: string;
   types: {
-    name: keyof typeof POKEMON_TYPES;
+    slot: number;
+    type: {
+      name: keyof typeof POKEMON_TYPES;
+      url: string;
+    }
   }[]
 }
 
 export function CardPokemon({ name, numberPokedex, image, types }: CardPokemonProps) {
-  const typeMain = types[0]
+  const typeMain = types[0].type
+  const numberPorkedexAjusted = numberPokedex?.padStart(3, '0')
 
   return (
     <S.Container type={typeMain.name}>
@@ -30,18 +37,18 @@ export function CardPokemon({ name, numberPokedex, image, types }: CardPokemonPr
       />
       <S.Informations>
         <S.NumberPokedex>
-          #{numberPokedex}
+          #{numberPorkedexAjusted}
         </S.NumberPokedex>
         <S.Name>
           {name}
         </S.Name>
         <FlatList
           data={types}
-          keyExtractor={item => item.name}
+          keyExtractor={item => item.type.name}
           renderItem={({ item }) => (
-            <S.Type type={item.name}>
-              {POKEMON_TYPES[item.name].icon}
-              <S.TextType>{item.name}</S.TextType>
+            <S.Type type={item.type.name}>
+              {POKEMON_TYPES[item.type.name]?.icon}
+              <S.TextType>{item.type.name}</S.TextType>
             </S.Type>
           )}
           horizontal
