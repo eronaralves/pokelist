@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // Screens
 import { Home } from '@screens/Home';
+import { ProfilePokemon } from '@screens/ProfilePokemon';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -15,7 +16,7 @@ export function AppRoutes() {
 
       <Screen
         name='pokemon'
-        component={Home}
+        component={ProfilePokemon}
       />
     </Navigator>
   );

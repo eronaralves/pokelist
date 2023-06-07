@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
-import { FlatList, Text, ActivityIndicator, View } from 'react-native';
+import { FlatList, Text, ActivityIndicator } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 // Images
-import PokeBall from '../../assets/images/Pokeball.png'
+import PokeBall from '../../assets/images/Pokeball.png';
 
 // Styles
 import * as S from './styles';
 
 // Components
-import { CardPokemon, CardPokemonProps } from '@components/CardPokemon';
+import { CardPokemon, PokemonCard } from '@components/CardPokemon';
 import { Input } from '@components/Input';
 
 // Axios
@@ -16,8 +17,11 @@ import { api } from '../../lib/axios';
 
 
 export function Home() {
-  const [pokemons, setPokemons] = useState<CardPokemonProps[]>([]);
+  const [pokemons, setPokemons] = useState<PokemonCard[]>([]);
   const [searchPokemon, setSearchPokemon] = useState('');
+
+  const navigation = useNavigation();
+
 
   async function fecthPokemons() {
     const response = await api.get('pokemon')
@@ -27,7 +31,7 @@ export function Home() {
       const responsePokemonDetails = await api.get(`pokemon/${item.name}`)
       const details = await responsePokemonDetails.data
 
-      const pokemon:CardPokemonProps = {
+      const pokemon:PokemonCard = {
         name: details.name,
         image: details.sprites.other['official-artwork'].front_default,
         numberPokedex: String(details.id),
@@ -38,6 +42,10 @@ export function Home() {
     })
 
     return listPokemons
+  }
+
+  function handleSendToProfile(name: string) {
+    navigation.navigate('pokemon', { name })
   }
 
   useEffect(() => {
@@ -68,10 +76,8 @@ export function Home() {
             keyExtractor={pokemon => pokemon.name}
             renderItem={({ item }) => (
               <CardPokemon 
-                name={item.name}
-                numberPokedex={item.numberPokedex}
-                image={item.image}
-                types={item.types}
+                data={item}
+                onPress={() => handleSendToProfile(item.name)}
               />
             )}
             ListEmptyComponent={() => (
