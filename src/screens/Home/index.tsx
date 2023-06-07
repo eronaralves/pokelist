@@ -21,11 +21,11 @@ export function Home() {
 
   async function fecthPokemons() {
     const response = await api.get('pokemon')
-    const data = response.data
+    const data = await response.data
 
     const listPokemons = data.results.map(async (item: any) => {
       const responsePokemonDetails = await api.get(`pokemon/${item.name}`)
-      const details = responsePokemonDetails.data
+      const details = await responsePokemonDetails.data
 
       const pokemon:CardPokemonProps = {
         name: details.name,
