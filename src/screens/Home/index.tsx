@@ -8,36 +8,39 @@ import PokeBall from '../../assets/images/Pokeball.png'
 import * as S from './styles';
 
 // Components
-import { CardPokemon, CardPokemonProps } from '@components/CardPokemon';
+import { CardPokemon, PokemonCard, TypesPokemonProps } from '@components/CardPokemon';
 import { Input } from '@components/Input';
 
 // Axios
-import { api } from '../../lib/axios';
+import PokeApi from 'pokeapi-typescript'
 
 
 export function Home() {
-  const [pokemons, setPokemons] = useState<CardPokemonProps[]>([]);
+  const [pokemons, setPokemons] = useState<PokemonCard[]>([]);
   const [searchPokemon, setSearchPokemon] = useState('');
 
   async function fecthPokemons() {
-    const response = await api.get('pokemon')
-    const data = await response.data
+    const responsePokemons = await PokeApi.Pokemon.list(60)
+    const promises = responsePokemons.results.map(item => PokeApi.Pokemon.resolve(item.name))
 
-    const listPokemons = data.results.map(async (item: any) => {
-      const responsePokemonDetails = await api.get(`pokemon/${item.name}`)
-      const details = await responsePokemonDetails.data
+    try {
+      const responses = await Promise.all(promises)
+      const dataDetails = responses.map(item => {
+        const pokemon:PokemonCard = {
+          name: item.name,
+          image: item.sprites.other['official-artwork'].front_default,
+          numberPokedex: String(item.id),
+          types: item.types as TypesPokemonProps[]
+        }
 
-      const pokemon:CardPokemonProps = {
-        name: details.name,
-        image: details.sprites.other['official-artwork'].front_default,
-        numberPokedex: String(details.id),
-        types: details.types
-      }
-      
-      return setPokemons(state => [...state, pokemon])
-    })
+        return pokemon
+      })
 
-    return listPokemons
+      setPokemons(dataDetails)
+    
+    } catch(err){
+      console.log(err)
+    }
   }
 
   useEffect(() => {
@@ -68,10 +71,7 @@ export function Home() {
             keyExtractor={pokemon => pokemon.name}
             renderItem={({ item }) => (
               <CardPokemon 
-                name={item.name}
-                numberPokedex={item.numberPokedex}
-                image={item.image}
-                types={item.types}
+                data={item}
               />
             )}
             ListEmptyComponent={() => (

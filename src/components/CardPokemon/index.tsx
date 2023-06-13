@@ -1,4 +1,4 @@
-import { FlatList } from 'react-native';
+import { FlatList, TouchableOpacityProps } from 'react-native';
 
 // Images
 import DetailsPattern from '../../assets/images/Pattern.png';
@@ -8,28 +8,34 @@ import PokeballCard from '../../assets/images/pokeball-card.png';
 import * as S from './styles';
 
 // Ultils
-import { POKEMON_TYPES } from '../../ultils/types';
+import { POKEMON_TYPES } from '../../ultils/typesPokemons';
+import { IPokemon } from 'pokeapi-typescript';
 
 // Interfaces
+export interface TypesPokemonProps {
+  slot: number;
+  type: {
+    name: keyof typeof POKEMON_TYPES;
+    url: string;
+  }
+}[]
 
 
-export interface CardPokemonProps {
+export interface PokemonCard {
   name: string;
-  numberPokedex?: string;
+  numberPokedex: string;
   image: string;
-  types: {
-    slot: number;
-    type: {
-      name: keyof typeof POKEMON_TYPES;
-      url: string;
-    }
-  }[]
+  types: TypesPokemonProps[];
 }
 
-export function CardPokemon({ name, numberPokedex, image, types }: CardPokemonProps) {
-  const typeMain = types[0].type
-  const numberPorkedexAjusted = numberPokedex?.padStart(3, '0')
+export interface CardPokemonProps extends TouchableOpacityProps {
+  data: PokemonCard
+}
 
+export function CardPokemon({ data, ...rest }: CardPokemonProps) {
+  const typeMain = data?.types[0].type
+  const numberPorkedexAjusted = String(data.numberPokedex).padStart(3, '0')
+  
   return (
     <S.Container type={typeMain.name}>
       <S.DetailsPatterns
@@ -40,10 +46,10 @@ export function CardPokemon({ name, numberPokedex, image, types }: CardPokemonPr
           #{numberPorkedexAjusted}
         </S.NumberPokedex>
         <S.Name>
-          {name}
+          {data?.name}
         </S.Name>
         <FlatList
-          data={types}
+          data={data?.types}
           keyExtractor={item => item.type.name}
           renderItem={({ item }) => (
             <S.Type type={item.type.name}>
@@ -56,7 +62,7 @@ export function CardPokemon({ name, numberPokedex, image, types }: CardPokemonPr
       </S.Informations>
       
       <S.ImagePokemon 
-        source={{uri: image}}
+        source={{uri: data?.image}}
       />
 
       <S.PokeballCard 
