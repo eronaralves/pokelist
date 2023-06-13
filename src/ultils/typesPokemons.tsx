@@ -8,7 +8,8 @@ import {
   Mountains,
   HandGrabbing,
   Sparkle,
-  Lightning
+  Lightning,
+  Butterfly
 } from 'phosphor-react-native';
 
 // Interfaces
@@ -18,7 +19,8 @@ interface TypeProps {
   icon: any
 };
 
-interface Types {
+
+export interface Types {
   poison: TypeProps;
   grass: TypeProps;
   fire: TypeProps;
@@ -82,5 +84,10 @@ export const POKEMON_TYPES = {
     background: '#F2CB55',
     color: '#EED535',
     icon: <Lightning color='#fff' weight='fill' />
+  },
+  flying: {
+    background: '#5e7298',
+    color: '#748FC9',
+    icon: <Butterfly color='#fff' weight='fill' />
   }
 } as Types

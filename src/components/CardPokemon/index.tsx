@@ -8,30 +8,33 @@ import PokeballCard from '../../assets/images/pokeball-card.png';
 import * as S from './styles';
 
 // Ultils
-import { POKEMON_TYPES } from '../../ultils/types';
+import { POKEMON_TYPES } from '../../ultils/typesPokemons';
 
 // Interfaces
+export interface TypesPokemonProps {
+  slot: number;
+  type: {
+    name: keyof typeof POKEMON_TYPES;
+    url: string;
+  }
+}[]
+
+
 export interface PokemonCard {
   name: string;
-  numberPokedex?: string;
+  numberPokedex: string;
   image: string;
-  types: {
-    slot: number;
-    type: {
-      name: keyof typeof POKEMON_TYPES;
-      url: string;
-    }
-  }[]
+  types: TypesPokemonProps[];
 }
 
 export interface CardPokemonProps extends TouchableOpacityProps {
-  data: PokemonCard;
+  data: PokemonCard
 }
 
 export function CardPokemon({ data, ...rest }: CardPokemonProps) {
-  const typeMain = data.types[0].type
-  const numberPorkedexAjusted = data.numberPokedex?.padStart(3, '0')
-
+  const typeMain = data?.types[0].type
+  const numberPorkedexAjusted = String(data.numberPokedex).padStart(3, '0')
+  
   return (
     <S.Container type={typeMain.name} {...rest}>
       <S.DetailsPatterns
@@ -42,10 +45,10 @@ export function CardPokemon({ data, ...rest }: CardPokemonProps) {
           #{numberPorkedexAjusted}
         </S.NumberPokedex>
         <S.Name>
-          {data.name}
+          {data?.name}
         </S.Name>
         <FlatList
-          data={data.types}
+          data={data?.types}
           keyExtractor={item => item.type.name}
           renderItem={({ item }) => (
             <S.Type type={item.type.name}>
@@ -58,7 +61,7 @@ export function CardPokemon({ data, ...rest }: CardPokemonProps) {
       </S.Informations>
       
       <S.ImagePokemon 
-        source={{uri: data.image}}
+        source={{uri: data?.image}}
       />
 
       <S.PokeballCard 

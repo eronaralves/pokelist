@@ -9,11 +9,11 @@ import PokeBall from '../../assets/images/Pokeball.png';
 import * as S from './styles';
 
 // Components
-import { CardPokemon, PokemonCard } from '@components/CardPokemon';
+import { CardPokemon, PokemonCard, TypesPokemonProps } from '@components/CardPokemon';
 import { Input } from '@components/Input';
 
-// Axios
-import { api } from '../../lib/axios';
+// PokeApi
+import PokeApi from 'pokeapi-typescript'
 
 
 export function Home() {
@@ -24,28 +24,27 @@ export function Home() {
 
 
   async function fecthPokemons() {
-    const response = await api.get('pokemon')
-    const data = await response.data
+    const responsePokemons = await PokeApi.Pokemon.list(60)
+    const promises = responsePokemons.results.map(item => PokeApi.Pokemon.resolve(item.name))
 
-    const listPokemons = data.results.map(async (item: any) => {
-      const responsePokemonDetails = await api.get(`pokemon/${item.name}`)
-      const details = await responsePokemonDetails.data
+    try {
+      const responses = await Promise.all(promises)
+      const dataDetails = responses.map(item => {
+        const pokemon:PokemonCard = {
+          name: item.name,
+          image: item.sprites.other['official-artwork'].front_default,
+          numberPokedex: String(item.id),
+          types: item.types as TypesPokemonProps[]
+        }
 
-      const pokemon:PokemonCard = {
-        name: details.name,
-        image: details.sprites.other['official-artwork'].front_default,
-        numberPokedex: String(details.id),
-        types: details.types
-      }
-      
-      return setPokemons(state => [...state, pokemon])
-    })
+        return pokemon
+      })
 
-    return listPokemons
-  }
-
-  function handleSendToProfile(name: string) {
-    navigation.navigate('pokemon', { name })
+      setPokemons(dataDetails)
+    
+    } catch(err){
+      console.log(err)
+    }
   }
 
   useEffect(() => {
@@ -77,7 +76,6 @@ export function Home() {
             renderItem={({ item }) => (
               <CardPokemon 
                 data={item}
-                onPress={() => handleSendToProfile(item.name)}
               />
             )}
             ListEmptyComponent={() => (

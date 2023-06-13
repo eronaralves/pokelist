@@ -2,7 +2,7 @@ import { TouchableOpacity } from "react-native";
 import styled, { css } from "styled-components/native";
 
 // Ultils
-import { POKEMON_TYPES } from "../../ultils/types";
+import { POKEMON_TYPES } from "../../ultils/typesPokemons";
 
 // Icons
 import { Leaf } from "phosphor-react-native";
