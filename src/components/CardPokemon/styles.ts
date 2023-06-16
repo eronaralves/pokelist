@@ -4,16 +4,13 @@ import styled, { css } from "styled-components/native";
 // Ultils
 import { POKEMON_TYPES } from "../../ultils/typesPokemons";
 
-// Icons
-import { Leaf } from "phosphor-react-native";
-
 // Interfaces
-export interface TypesProps {
+export interface TypeProps {
   type: keyof typeof POKEMON_TYPES;
 };
 
 
-export const Container = styled(TouchableOpacity)<TypesProps>`
+export const Container = styled(TouchableOpacity)<TypeProps>`
   flex-direction: row;
   justify-content: space-between;
 
@@ -57,33 +54,6 @@ export const Name = styled.Text`
   `}
 
   margin-bottom: 5px;
-  text-transform: capitalize;
-`;
-
-export const Type = styled.View<TypesProps>`
-  flex-direction: row;
-  align-items: center;
-  gap: 5px;
-  padding: 5px;
-  margin-right: 5px;
-
-  border-radius: 3px;
-  background-color: ${({ type }) => POKEMON_TYPES[type]?.color };
-  
-`;
-
-export const IconLeaf = styled(Leaf).attrs(({ theme }) => ({
-  size: 20,
-  weight: 'fill',
-  color: theme.colors.background
-}))``;
-
-export const TextType = styled.Text`
-  ${({ theme }) => css`
-    font-family: ${theme.font_family.regular};
-    font-size: 12px;
-    color: ${theme.colors.background};
-  `}
   text-transform: capitalize;
 `;
 

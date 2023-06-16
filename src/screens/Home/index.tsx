@@ -13,7 +13,7 @@ import { CardPokemon, PokemonCard, TypesPokemonProps } from '@components/CardPok
 import { Input } from '@components/Input';
 
 // PokeApi
-import PokeApi from 'pokeapi-typescript'
+import PokeApi from 'pokeapi-typescript';
 
 
 export function Home() {
@@ -21,6 +21,10 @@ export function Home() {
   const [searchPokemon, setSearchPokemon] = useState('');
 
   const navigation = useNavigation();
+
+  function handleSendToProfile(id: number) {
+    navigation.navigate('pokemon', { id })
+  }
 
 
   async function fecthPokemons() {
@@ -31,6 +35,7 @@ export function Home() {
       const responses = await Promise.all(promises)
       const dataDetails = responses.map(item => {
         const pokemon:PokemonCard = {
+          id: item.id,
           name: item.name,
           image: item.sprites.other['official-artwork'].front_default,
           numberPokedex: String(item.id),
@@ -76,6 +81,7 @@ export function Home() {
             renderItem={({ item }) => (
               <CardPokemon 
                 data={item}
+                onPress={() => handleSendToProfile(item.id)}
               />
             )}
             ListEmptyComponent={() => (
