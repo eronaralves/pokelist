@@ -1,6 +1,11 @@
-import { useEffect, useState } from 'react';
-import { FlatList, Text, ActivityIndicator } from 'react-native';
+import { useEffect, useState, useCallback } from 'react';
+import {
+  FlatList,
+  Text,
+  ActivityIndicator
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { debounce } from "lodash";
 
 // Images
 import PokeBall from '../../assets/images/Pokeball.png';
@@ -18,7 +23,9 @@ import PokeApi from 'pokeapi-typescript';
 
 export function Home() {
   const [pokemons, setPokemons] = useState<PokemonCard[]>([]);
+  const [filteredPokemons, setFilteredPokemons] = useState<PokemonCard[]>(pokemons);
   const [searchPokemon, setSearchPokemon] = useState('');
+  
 
   const navigation = useNavigation();
 
@@ -26,11 +33,27 @@ export function Home() {
     navigation.navigate('pokemon', { id })
   }
 
+  const handleFilterPokemon = useCallback(
+    debounce(value => {
+      const filtered = pokemons
+        .filter((pokemon) => pokemon.name.startsWith(value))
+      
+      setFilteredPokemons(filtered);
+    }, 300),
+    [filteredPokemons],
+  );
+
+
+  function onChangeText(value: string) {
+    setSearchPokemon(value);
+    handleFilterPokemon(value);
+  };
+
 
   async function fecthPokemons() {
-    const responsePokemons = await PokeApi.Pokemon.list(60)
+    const responsePokemons = await PokeApi.Pokemon.list(150)
     const promises = responsePokemons.results.map(item => PokeApi.Pokemon.resolve(item.name))
-
+    
     try {
       const responses = await Promise.all(promises)
       const dataDetails = responses.map(item => {
@@ -45,7 +68,8 @@ export function Home() {
         return pokemon
       })
 
-      setPokemons(dataDetails)
+      setPokemons(dataDetails);
+      setFilteredPokemons(dataDetails);
     
     } catch(err){
       console.log(err)
@@ -55,9 +79,6 @@ export function Home() {
   useEffect(() => {
     fecthPokemons()
   }, [])
-
-
-  const filterPokemons = pokemons.filter(pokemon => pokemon.name.startsWith(searchPokemon))
 
   return (
     <S.Container>
@@ -69,14 +90,14 @@ export function Home() {
         <S.Description>Search for Pokémon by name or using the National Pokédex number.</S.Description>
         <Input 
           placeholder='What Pokémon are you looking for?'
-          onChangeText={setSearchPokemon}
+          onChangeText={onChangeText}
           value={searchPokemon}
         />
       </S.Header>
       <S.Content>
         {pokemons.length > 0 ? (
           <FlatList
-            data={filterPokemons}
+            data={filteredPokemons}
             keyExtractor={pokemon => pokemon.name}
             renderItem={({ item }) => (
               <CardPokemon 
