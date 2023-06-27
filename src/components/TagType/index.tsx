@@ -9,14 +9,14 @@ import { TypeProps } from '@components/CardPokemon/styles';
 
 // Interfaces
 interface TagTypeProps extends TypeProps {
-  hasText?: boolean;
+  noText?: boolean;
 }
 
-export function TagType({ type, hasText = true }: TagTypeProps) {
+export function TagType({ type, noText = false }: TagTypeProps) {
   return (
     <S.Type type={type}>
-       {POKEMON_TYPES[type]?.icon}
-       {hasText && <S.TextType>{type}</S.TextType>}
+      {POKEMON_TYPES[type]?.icon}
+      {!noText && <S.TextType>{type}</S.TextType>}
     </S.Type>
   )
 }

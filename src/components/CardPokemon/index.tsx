@@ -9,7 +9,7 @@ import * as S from './styles';
 
 // Ultils
 import { POKEMON_TYPES } from '../../ultils/typesPokemons';
-import { formatterNumberPokedex } from '../../ultils/formatterNumberPokedex';
+import { formatterNumberPokedex } from '../../ultils/formatter';
 
 // Components
 import { TagType } from '@components/TagType';

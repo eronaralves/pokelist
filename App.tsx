@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { View, StatusBar } from 'react-native';
-import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
+import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto';
 
 // Theme
 import { ThemeProvider } from 'styled-components/native';
@@ -14,7 +14,8 @@ import { Routes } from '@routes/index';
 export default function App() {
   const [ fontsLoaded ] = useFonts({
     Roboto_400Regular,
-    Roboto_700Bold
+    Roboto_500Medium,
+    Roboto_700Bold,
   })
 
   return (

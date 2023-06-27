@@ -5,6 +5,7 @@ import { TypeProps } from "@components/CardPokemon/styles";
 import { POKEMON_TYPES } from "../../ultils/typesPokemons";
 
 export const Type = styled.View<TypeProps>`
+  height: 30px;
   flex-direction: row;
   align-items: center;
   gap: 5px;
