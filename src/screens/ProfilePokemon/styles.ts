@@ -93,29 +93,37 @@ export const Tab = styled.Text<TabProps>`
 `;
 
 export const ImageBackgroundTab = styled.Image`
-  width: 100%;
+  width: 100px;
   position: absolute;
   top: 0px;
   left: 0px;
 `;
 
 export const ContainerCharacteristics = styled.View<TypeProps>`
+  height: 100%;
+  width: 100%;
   flex: 1;
-  background-color: ${({ type }) => POKEMON_TYPES[type]?.background };
+  background-color: ${({ type }) => POKEMON_TYPES[type]?.background}; 
 `;
 
-export const ContentCharacteristics = styled.View`
+export const ScrollViewContainer = styled.ScrollView`
   flex: 1;
-  padding: 35px 25px;
+  
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   background: ${({ theme }) => theme.colors.background};
+  `;
+
+export const ContentCharacteristics = styled.View`
+  padding: 35px 25px;
 `;
 
 
 export const SectionCharacteristics = styled.View`
-  width: 100%;
+  flex: 1;
   gap: 15px;
+  margin-bottom: 30px;
+  
 `;
 
 export const TitleSection = styled(Text)<TypeProps>`
@@ -130,6 +138,13 @@ export const TitleSection = styled(Text)<TypeProps>`
 export const BoxCharacteristic = styled.View`
   flex-direction: row;
   align-items: center;
+`;
+
+export const TypeWeaknesses = styled.View<TypeProps>`
+  padding: 5px;
+  margin-right: 10px;
+  border-radius: 3px;
+  background-color: ${({ type }) => POKEMON_TYPES[type]?.background};
 `;
 
 export const LabelCharacteristic = styled.Text`

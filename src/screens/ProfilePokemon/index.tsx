@@ -42,7 +42,11 @@ interface PokemonSelect {
       url: string;
     }
   }[];
-  weaknesses: Weaknesses[]
+  weaknesses: Weaknesses[],
+  base_experience: number;
+  base_hp: number | undefined;
+  base_attack: number | undefined;
+  base_defense: number | undefined;
 }
 
 const radioButtonsData = [
@@ -51,10 +55,6 @@ const radioButtonsData = [
   },
   {
     value: 'stats'
-  }
-  ,
-  {
-    value: 'evolution'
   }
 ];
 
@@ -77,9 +77,14 @@ export function ProfilePokemon() {
     const typeMain = data.types[0].type.name;
     const detailsType = PokeAPI.Type.resolve(typeMain)
 
+    // Stats
+    const statsForFind = ["hp", "attack", "defense"]
+    const statsHp = data.stats.filter(stat => statsForFind.includes(stat.stat.name))
+
+    console.log(statsHp)
     try {
       const dataType = await Promise.resolve(detailsType)
-      
+
       const pokemonDetails: PokemonSelect = {
         id: data.id,
         name: data.name,
@@ -88,7 +93,11 @@ export function ProfilePokemon() {
         weight: data.weight,
         height: data.height,
         abilities: data.abilities,
-        weaknesses: dataType.damage_relations.double_damage_from as Weaknesses[]
+        weaknesses: dataType.damage_relations.double_damage_from as Weaknesses[],
+        base_experience: data.base_experience,
+        base_hp: statsHp[0].base_stat,
+        base_attack: statsHp[1].base_stat,
+        base_defense: statsHp[2].base_stat
       }
   
       setPokemonSelect(pokemonDetails)
@@ -145,46 +154,68 @@ export function ProfilePokemon() {
       </S.Header>
 
       <S.ContainerCharacteristics type={typeMain}>
-        <S.ContentCharacteristics>
-          {tabSelect === "about" && (
-            <S.SectionCharacteristics>
-              <S.TitleSection type={typeMain}>
-                Pokédex Data
-              </S.TitleSection>
+        <S.ScrollViewContainer>
+          {tabSelect === "about" ? (
+            <S.ContentCharacteristics> 
+              <S.SectionCharacteristics>
+                <S.TitleSection type={typeMain}>
+                  Pokédex Data
+                </S.TitleSection>
 
-              <S.BoxCharacteristic>
-                <S.LabelCharacteristic>Species</S.LabelCharacteristic>
-                <S.Characteristic>Seed Pokemon</S.Characteristic>
-              </S.BoxCharacteristic>
-              <S.BoxCharacteristic>
-                <S.LabelCharacteristic>Height</S.LabelCharacteristic>
-                <S.Characteristic>{formatterHeight(pokemonSelect?.height)}m</S.Characteristic>
-              </S.BoxCharacteristic>
-              <S.BoxCharacteristic>
-                <S.LabelCharacteristic>Weight</S.LabelCharacteristic>
-                <S.Characteristic>{formatterWeight(pokemonSelect?.weight)}kg</S.Characteristic>
-              </S.BoxCharacteristic>
-              <S.BoxCharacteristic>
-                <S.LabelCharacteristic>Abilities</S.LabelCharacteristic>
-                <S.Characteristic>1. {pokemonSelect?.abilities[0].ability.name}</S.Characteristic>
-              </S.BoxCharacteristic>
-              <S.BoxCharacteristic>
-                <S.LabelCharacteristic>Weaknesses</S.LabelCharacteristic>
-                <FlatList 
-                  data={pokemonSelect?.weaknesses}
-                  keyExtractor={item => item.name}
-                  renderItem={({ item }) => (
-                    <TagType 
-                      type={item.name}
-                      noText
-                    />
-                  )}
-                  horizontal
-                />
-              </S.BoxCharacteristic>
-            </S.SectionCharacteristics>
+                <S.BoxCharacteristic>
+                  <S.LabelCharacteristic>Species</S.LabelCharacteristic>
+                  <S.Characteristic>Seed Pokemon</S.Characteristic>
+                </S.BoxCharacteristic>
+                <S.BoxCharacteristic>
+                  <S.LabelCharacteristic>Height</S.LabelCharacteristic>
+                  <S.Characteristic>{formatterHeight(pokemonSelect?.height)}m</S.Characteristic>
+                </S.BoxCharacteristic>
+                <S.BoxCharacteristic>
+                  <S.LabelCharacteristic>Weight</S.LabelCharacteristic>
+                  <S.Characteristic>{formatterWeight(pokemonSelect?.weight)}kg</S.Characteristic>
+                </S.BoxCharacteristic>
+                <S.BoxCharacteristic>
+                  <S.LabelCharacteristic>Abilities</S.LabelCharacteristic>
+                  <S.Characteristic>1. {pokemonSelect?.abilities[0].ability.name}</S.Characteristic>
+                </S.BoxCharacteristic>
+                <S.BoxCharacteristic>
+                  <S.LabelCharacteristic>Weaknesses</S.LabelCharacteristic>
+                  <FlatList 
+                    data={pokemonSelect?.weaknesses}
+                    keyExtractor={item => item.name}
+                    renderItem={({ item }) => (
+                      <S.TypeWeaknesses type={item.name}>
+                        {POKEMON_TYPES[item.name]?.icon}
+                      </S.TypeWeaknesses>
+                    )}
+                    horizontal
+                  />
+                </S.BoxCharacteristic>
+              </S.SectionCharacteristics>
+            </S.ContentCharacteristics>
+          ) : tabSelect === "stats" && (
+            <S.ContentCharacteristics> 
+              <S.SectionCharacteristics>
+                <S.TitleSection type={typeMain}>
+                  Base Stats
+                </S.TitleSection>
+
+                <S.BoxCharacteristic>
+                  <S.LabelCharacteristic>HP</S.LabelCharacteristic>
+                  <S.Characteristic>{pokemonSelect?.base_hp}</S.Characteristic>
+                </S.BoxCharacteristic>
+                <S.BoxCharacteristic>
+                  <S.LabelCharacteristic>Attack</S.LabelCharacteristic>
+                  <S.Characteristic>{pokemonSelect?.base_attack}</S.Characteristic>
+                </S.BoxCharacteristic>
+                <S.BoxCharacteristic>
+                  <S.LabelCharacteristic>Desense</S.LabelCharacteristic>
+                  <S.Characteristic>{pokemonSelect?.base_defense}</S.Characteristic>
+                </S.BoxCharacteristic>
+              </S.SectionCharacteristics>
+            </S.ContentCharacteristics>
           )}
-        </S.ContentCharacteristics>
+        </S.ScrollViewContainer>
       </S.ContainerCharacteristics>
     </S.Container>
   )
