@@ -146,7 +146,7 @@ export function ProfilePokemon() {
         <S.ContainerTabs>
           {radioButtonsData.map(radio => (
             <S.BoxTab key={radio.value} onPress={() => setTabSelect(radio.value)}>
-              <S.Tab isSelect={tabSelect === radio.value}>{radio.value}</S.Tab>
+              <S.TextTab isSelect={tabSelect === radio.value}>{radio.value}</S.TextTab>
               {tabSelect === radio.value && <S.ImageBackgroundTab source={Pokeball} /> }
             </S.BoxTab>
           ))}

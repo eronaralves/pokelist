@@ -81,7 +81,7 @@ export const BoxTab = styled(TouchableOpacity)`
   align-items: center;
 `;
 
-export const Tab = styled.Text<TabProps>`
+export const TextTab = styled.Text<TabProps>`
   text-align: center;
   text-transform: capitalize;
 
@@ -96,7 +96,8 @@ export const ImageBackgroundTab = styled.Image`
   width: 100px;
   position: absolute;
   top: 0px;
-  left: 0px;
+  left: 50%;
+  transform: translateX(-50px);
 `;
 
 export const ContainerCharacteristics = styled.View<TypeProps>`
