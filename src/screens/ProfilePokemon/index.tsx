@@ -81,7 +81,6 @@ export function ProfilePokemon() {
     const statsForFind = ["hp", "attack", "defense"]
     const statsHp = data.stats.filter(stat => statsForFind.includes(stat.stat.name))
 
-    console.log(statsHp)
     try {
       const dataType = await Promise.resolve(detailsType)
 

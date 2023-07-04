@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import {
   Skull,
   Drop,
@@ -10,14 +11,16 @@ import {
   Sparkle,
   Lightning,
   Butterfly,
-  HandEye
+  HandEye,
+  Snowflake
 } from 'phosphor-react-native';
+
 
 // Interfaces
 interface TypeProps {
   background: string;
   color: string;
-  icon: any
+  icon: ReactNode;
 };
 
 
@@ -34,6 +37,9 @@ export interface Types {
   electric: TypeProps;
   psychic: TypeProps;
   rock: TypeProps;
+  ghost: TypeProps;
+  ice: TypeProps;
+  dragon: TypeProps;
 };
 
 
@@ -102,5 +108,20 @@ export const POKEMON_TYPES = {
     background: '#B8A038',
     color: '#d6bb42',
     icon: <HandEye size={18} color='#fff' weight='fill'  />
+  },
+  ghost: {
+    background: '#705898',
+    color: '#5e477f',
+    icon: <HandEye size={18} color='#fff' weight='fill'  />
+  },
+  ice: {
+    background: '#98D8D8',
+    color: '#7fb7b7',
+    icon: <Snowflake size={18} color='#fff' weight='fill'  />
+  },
+  dragon: {
+    background: '#8d81f4',
+    color: '#554baf',
+    icon: <Snowflake size={18} color='#fff' weight='fill'  />
   }
 } as Types

@@ -22,6 +22,9 @@
       "@theme/*": [
         "./src/theme/*"
       ],
+      "@context/*": [
+        "./src/context/*"
+      ],
       "@ultils/*": [
         "./src/ultils/*"
       ]

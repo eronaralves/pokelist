@@ -2,7 +2,7 @@
 import * as S from './styles';
 
 // Ultils
-import { POKEMON_TYPES } from '../../ultils/typesPokemons';
+import { POKEMON_TYPES } from '@ultils/typesPokemons';
 
 // Components
 import { TypeProps } from '@components/CardPokemon/styles';

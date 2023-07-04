@@ -1,15 +1,15 @@
 import { FlatList, TouchableOpacityProps } from 'react-native';
 
 // Images
-import DetailsPattern from '../../assets/images/Pattern.png';
-import PokeballCard from '../../assets/images/pokeball-card.png';
+import DetailsPattern from '@assets/images/Pattern.png';
+import PokeballCard from '@assets/images/pokeball-card.png';
 
 // Styles
 import * as S from './styles';
 
 // Ultils
-import { POKEMON_TYPES } from '../../ultils/typesPokemons';
-import { formatterNumberPokedex } from '../../ultils/formatter';
+import { POKEMON_TYPES } from '@ultils/typesPokemons';
+import { formatterNumberPokedex } from '@ultils/formatter';
 
 // Components
 import { TagType } from '@components/TagType';

@@ -1,20 +1,23 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useContext } from 'react';
 import {
   FlatList,
   Text,
   ActivityIndicator
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
+import { AppContext } from '@context/AppContext';
 import { debounce } from "lodash";
 
 // Images
-import PokeBall from '../../assets/images/Pokeball.png';
+import PokeBall from '@assets/images/Pokeball.png';
 
 // Styles
 import * as S from './styles';
 
 // Components
 import { CardPokemon, PokemonCard, TypesPokemonProps } from '@components/CardPokemon';
+import { ButtonDarkMode } from '@components/ButtonDarkMode';
 import { Input } from '@components/Input';
 
 // PokeApi
@@ -26,7 +29,7 @@ export function Home() {
   const [filteredPokemons, setFilteredPokemons] = useState<PokemonCard[]>(pokemons);
   const [searchPokemon, setSearchPokemon] = useState('');
   
-
+  const { isDarkMode } = useContext(AppContext)
   const navigation = useNavigation();
 
   function handleSendToProfile(id: number) {
@@ -82,10 +85,14 @@ export function Home() {
 
   return (
     <S.Container>
-      <S.Header
-        source={PokeBall}
-        resizeMethod='resize'
-      >
+      <S.Header>
+        <ButtonDarkMode />
+        {!isDarkMode && (
+          <S.ImageHeaderBackground
+            source={PokeBall}
+            resizeMethod="resize"
+          />
+        )}
         <S.Title>Pokédex</S.Title>
         <S.Description>Search for Pokémon by name or using the National Pokédex number.</S.Description>
         <Input 
@@ -93,7 +100,8 @@ export function Home() {
           onChangeText={onChangeText}
           value={searchPokemon}
         />
-      </S.Header>
+      </S.Header>      
+      
       <S.Content>
         {pokemons.length > 0 ? (
           <FlatList
