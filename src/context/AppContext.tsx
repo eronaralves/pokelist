@@ -20,10 +20,9 @@ export function AppContextProvider({ children }: AppContextProviderProps) {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
 
   async function handleChangeTheme() {
-    const newTheme = isDarkMode ? false : true;
-    await changeTheme(newTheme)
+    await changeTheme(!isDarkMode)
 
-    setIsDarkMode(newTheme);
+    setIsDarkMode(!isDarkMode);
   }
 
   async function fetchThemeCurrent() {
