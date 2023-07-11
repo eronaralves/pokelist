@@ -114,7 +114,11 @@ export function ProfilePokemon() {
   }, [])
 
   const typeMain = pokemonSelect?.types[0].type.name as keyof typeof POKEMON_TYPES;
-  const numberPorkedexAjusted = pokemonSelect && formatterNumberPokedex(pokemonSelect.id)
+
+  // Formatter details pokemon
+  const numberPorkedexAjusted = formatterNumberPokedex(pokemonSelect?.id)
+  const heightPokemon = formatterHeight(pokemonSelect?.height)
+  const weightPokemon = formatterWeight(pokemonSelect?.weight)
 
   return (
     <S.Container>
@@ -163,16 +167,16 @@ export function ProfilePokemon() {
                 </S.TitleSection>
 
                 <S.BoxCharacteristic>
-                  <S.LabelCharacteristic>Species</S.LabelCharacteristic>
-                  <S.Characteristic>Seed Pokemon</S.Characteristic>
+                  <S.LabelCharacteristic>Experience</S.LabelCharacteristic>
+                  <S.Characteristic>{pokemonSelect?.base_experience}</S.Characteristic>
                 </S.BoxCharacteristic>
                 <S.BoxCharacteristic>
                   <S.LabelCharacteristic>Height</S.LabelCharacteristic>
-                  <S.Characteristic>{formatterHeight(pokemonSelect?.height)}m</S.Characteristic>
+                  <S.Characteristic>{heightPokemon}m</S.Characteristic>
                 </S.BoxCharacteristic>
                 <S.BoxCharacteristic>
                   <S.LabelCharacteristic>Weight</S.LabelCharacteristic>
-                  <S.Characteristic>{formatterWeight(pokemonSelect?.weight)}kg</S.Characteristic>
+                  <S.Characteristic>{weightPokemon}kg</S.Characteristic>
                 </S.BoxCharacteristic>
                 <S.BoxCharacteristic>
                   <S.LabelCharacteristic>Abilities</S.LabelCharacteristic>

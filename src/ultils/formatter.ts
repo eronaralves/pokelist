@@ -1,5 +1,5 @@
 
-export function formatterNumberPokedex(numberPokedex: number){
+export function formatterNumberPokedex(numberPokedex?: number){
   const numberPorkedex = String(numberPokedex).padStart(3, '0')
 
   return numberPorkedex;
