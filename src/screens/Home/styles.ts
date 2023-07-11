@@ -9,6 +9,7 @@ export const Container = styled(SafeAreaView)`
 
 export const Header = styled.ImageBackground`
   padding: 100px 20px 0px 20px;
+  margin-bottom: 30px;
 `;
 
 export const Content = styled.View`
@@ -35,3 +36,9 @@ export const Description = styled.Text`
 
   margin-bottom: 25px;
 `;
+
+export const ContainerLoading = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`

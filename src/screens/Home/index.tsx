@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { FlatList, Text } from 'react-native';
+import { useEffect, useState } from 'react';
+import { FlatList, Text, ActivityIndicator, View } from 'react-native';
 
 // Images
 import PokeBall from '../../assets/images/Pokeball.png'
@@ -8,12 +8,45 @@ import PokeBall from '../../assets/images/Pokeball.png'
 import * as S from './styles';
 
 // Components
-import { CardPokemon, CardPokemonProps } from '@components/CardPokemon';
+import { CardPokemon, PokemonCard, TypesPokemonProps } from '@components/CardPokemon';
 import { Input } from '@components/Input';
+
+// Axios
+import PokeApi, { IPokemon } from 'pokeapi-typescript'
+import axios from 'axios';
 
 
 export function Home() {
-  const [pokemons, setPokemons] = useState<CardPokemonProps[]>([]);
+  const [pokemons, setPokemons] = useState<PokemonCard[]>([]);
+
+  async function fecthPokemons() {
+    const responsePokemons = await PokeApi.Pokemon.list(60)
+    const promises = responsePokemons.results.map(item => PokeApi.Pokemon.resolve(item.name))
+
+    try {
+      const responses = await Promise.all(promises)
+      const dataDetails = responses.map(item => {
+        const pokemon:PokemonCard = {
+          name: item.name,
+          image: item.sprites.other['official-artwork'].front_default,
+          numberPokedex: String(item.id),
+          types: item.types as TypesPokemonProps[]
+        }
+
+        return pokemon
+      })
+
+      setPokemons(dataDetails)
+    
+    } catch(err){
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    fecthPokemons()
+  }, [])
+
 
   return (
     <S.Container>
@@ -28,26 +61,23 @@ export function Home() {
         />
       </S.Header>
       <S.Content>
-        <FlatList
+        {pokemons.length > 0 ? (
+          <FlatList
             data={pokemons}
-            keyExtractor={pokemon => pokemon.numberPokedex}
+            keyExtractor={pokemon => pokemon.name}
             renderItem={({ item }) => (
               <CardPokemon 
-                name={item.name}
-                numberPokedex={item.numberPokedex}
-                image={item.image}
-                types={item.types}
+                data={item}
               />
             )}
             ListEmptyComponent={() => (
-              <Text>Nada encotrado!</Text>
+              <Text>Nenhum pokemon encontrado!</Text>
             )}
             contentContainerStyle={
               pokemons.length > 0 ?
               {
-                marginTop: 30,
                 paddingTop: 20,
-                paddingBottom: 100
+                paddingBottom: 100,
               } :
               {
                 flex: 1,
@@ -57,6 +87,12 @@ export function Home() {
             }
             showsVerticalScrollIndicator={false}
           />
+        ): (
+          <S.ContainerLoading>
+            <ActivityIndicator />
+          </S.ContainerLoading>
+        )}
+        
       </S.Content>
     </S.Container>
   );
