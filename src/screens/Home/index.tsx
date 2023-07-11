@@ -1,23 +1,27 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useContext } from 'react';
 import {
   FlatList,
   Text,
   ActivityIndicator
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+import { AppContext } from '@context/AppContext';
 import { debounce } from "lodash";
 
 // Images
-import PokeBall from '../../assets/images/Pokeball.png'
+import PokeBall from '@assets/images/Pokeball.png';
 
 // Styles
 import * as S from './styles';
 
 // Components
 import { CardPokemon, PokemonCard, TypesPokemonProps } from '@components/CardPokemon';
+import { ButtonDarkMode } from '@components/ButtonDarkMode';
 import { Input } from '@components/Input';
 
-// Axios
-import PokeApi from 'pokeapi-typescript'
+// PokeApi
+import PokeApi from 'pokeapi-typescript';
 
 
 export function Home() {
@@ -25,6 +29,12 @@ export function Home() {
   const [filteredPokemons, setFilteredPokemons] = useState<PokemonCard[]>(pokemons);
   const [searchPokemon, setSearchPokemon] = useState('');
   
+  const { isDarkMode } = useContext(AppContext)
+  const navigation = useNavigation();
+
+  function handleSendToProfile(id: number) {
+    navigation.navigate('pokemon', { id })
+  }
 
   const handleFilterPokemon = useCallback(
     debounce(value => {
@@ -41,8 +51,8 @@ export function Home() {
     setSearchPokemon(value);
     handleFilterPokemon(value);
   };
-  
-  
+
+
   async function fecthPokemons() {
     const responsePokemons = await PokeApi.Pokemon.list(150)
     const promises = responsePokemons.results.map(item => PokeApi.Pokemon.resolve(item.name))
@@ -51,6 +61,7 @@ export function Home() {
       const responses = await Promise.all(promises)
       const dataDetails = responses.map(item => {
         const pokemon:PokemonCard = {
+          id: item.id,
           name: item.name,
           image: item.sprites.other['official-artwork'].front_default,
           numberPokedex: String(item.id),
@@ -74,10 +85,14 @@ export function Home() {
 
   return (
     <S.Container>
-      <S.Header
-        source={PokeBall}
-        resizeMethod='resize'
-      >
+      <S.Header>
+        <ButtonDarkMode />
+        {!isDarkMode && (
+          <S.ImageHeaderBackground
+            source={PokeBall}
+            resizeMethod="resize"
+          />
+        )}
         <S.Title>Pokédex</S.Title>
         <S.Description>Search for Pokémon by name or using the National Pokédex number.</S.Description>
         <Input 
@@ -85,7 +100,8 @@ export function Home() {
           onChangeText={onChangeText}
           value={searchPokemon}
         />
-      </S.Header>
+      </S.Header>      
+      
       <S.Content>
         {pokemons.length > 0 ? (
           <FlatList
@@ -94,6 +110,7 @@ export function Home() {
             renderItem={({ item }) => (
               <CardPokemon 
                 data={item}
+                onPress={() => handleSendToProfile(item.id)}
               />
             )}
             ListEmptyComponent={() => (

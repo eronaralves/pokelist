@@ -3,7 +3,7 @@ export declare global {
     interface RootParamList {
       home: undefined;
       pokemon: {
-        id: string;
+        id: number;
       }
     }
   }

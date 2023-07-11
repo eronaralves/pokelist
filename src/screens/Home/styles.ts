@@ -4,12 +4,19 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
+  position: relative;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
 export const Header = styled.ImageBackground`
+  position: relative;
   padding: 100px 20px 0px 20px;
   margin-bottom: 30px;
+`;
+
+export const ImageHeaderBackground = styled.Image`
+  position: absolute;
+  top: 0;
 `;
 
 export const Content = styled.View`

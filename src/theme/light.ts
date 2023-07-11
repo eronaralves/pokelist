@@ -1,12 +1,10 @@
-
-
 export const light = {
   colors: {
-    background: '#FFFFFF',
+    background: '#fff',
 
-    heading: '#17171B',
+    heading: '#17171b',
     text: '#747476',
 
-    input: '#F2F2F2'
+    input: '#f2f2f2'
   },
 }
