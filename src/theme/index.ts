@@ -12,7 +12,8 @@ export const defaultTheme = {
     md: 16,
     lg: 18,
     xl: 24,
-    '2xl': 32
+    '2xl': 26,
+    '3xl': 32
   },
   ...light
 };

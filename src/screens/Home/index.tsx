@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { FlatList, Text } from 'react-native';
 
 // Images
 import PokeBall from '../../assets/images/Pokeball.png'
@@ -6,10 +8,13 @@ import PokeBall from '../../assets/images/Pokeball.png'
 import * as S from './styles';
 
 // Components
+import { CardPokemon, CardPokemonProps } from '@components/CardPokemon';
 import { Input } from '@components/Input';
 
 
 export function Home() {
+  const [pokemons, setPokemons] = useState<CardPokemonProps[]>([]);
+
   return (
     <S.Container>
       <S.Header
@@ -22,6 +27,37 @@ export function Home() {
           placeholder='What Pokémon are you looking for?'
         />
       </S.Header>
+      <S.Content>
+        <FlatList
+            data={pokemons}
+            keyExtractor={pokemon => pokemon.numberPokedex}
+            renderItem={({ item }) => (
+              <CardPokemon 
+                name={item.name}
+                numberPokedex={item.numberPokedex}
+                image={item.image}
+                types={item.types}
+              />
+            )}
+            ListEmptyComponent={() => (
+              <Text>Nada encotrado!</Text>
+            )}
+            contentContainerStyle={
+              pokemons.length > 0 ?
+              {
+                marginTop: 30,
+                paddingTop: 20,
+                paddingBottom: 100
+              } :
+              {
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }
+            }
+            showsVerticalScrollIndicator={false}
+          />
+      </S.Content>
     </S.Container>
   );
 }
