@@ -1,9 +1,9 @@
-
 import { useEffect, useState, useCallback, useContext } from 'react';
 import {
   FlatList,
   Text,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -15,6 +15,8 @@ import { useTranslation } from 'react-i18next'
 
 // Images
 import PokeBall from '@assets/images/Pokeball.png';
+import EuaIcon from '@assets/images/eua-icon.png';
+import BrasilIcon from '@assets/images/brasil-icon.png';
 
 // Styles
 import * as S from './styles';
@@ -39,6 +41,10 @@ export function Home() {
 
   function handleSendToProfile(id: number) {
     navigation.navigate('pokemon', { id })
+  }
+
+  function handleChangeLanguage(laguage: string) {
+    i18n.changeLanguage(laguage)
   }
 
   const handleFilterPokemon = useCallback(
@@ -91,7 +97,20 @@ export function Home() {
   return (
     <S.Container>
       <S.Header>
-        <ButtonDarkMode />
+        <S.HeadingIcons>
+          {i18n.language === 'pt-BR' ? (
+            <S.ButtonIconLaguage onPress={() => handleChangeLanguage('en-US')}>
+              <S.ImageIconLaguage source={BrasilIcon} />
+              <S.TextLaguage>PT</S.TextLaguage>
+            </S.ButtonIconLaguage>
+          ) : (
+            <S.ButtonIconLaguage onPress={() => handleChangeLanguage('pt-BR')}>
+              <S.ImageIconLaguage source={EuaIcon} />
+              <S.TextLaguage>EN</S.TextLaguage>
+            </S.ButtonIconLaguage>
+          )}
+          <ButtonDarkMode />
+        </S.HeadingIcons>
         {!isDarkMode && (
           <S.ImageHeaderBackground
             source={PokeBall}
