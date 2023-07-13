@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { FlatList, TouchableOpacity } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
+// I18n
+import { useTranslation } from 'react-i18next'
+
 // Images
 import Pokeball from "@assets/images/background-tab.png";
 
@@ -62,6 +65,7 @@ export function ProfilePokemon() {
   const [pokemonSelect, setPokemonSelect] = useState<PokemonSelect>()
   const [tabSelect, setTabSelect] = useState<string>(radioButtonsData[0].value)
 
+  const { t } = useTranslation()
   const navigation = useNavigation()
   const route = useRoute()
   const { id } = route.params as RouteParams
@@ -145,7 +149,7 @@ export function ProfilePokemon() {
         <S.ContainerTabs>
           {radioButtonsData.map(radio => (
             <S.BoxTab key={radio.value} onPress={() => setTabSelect(radio.value)}>
-              <S.TextTab isSelect={tabSelect === radio.value}>{radio.value}</S.TextTab>
+              <S.TextTab isSelect={tabSelect === radio.value}>{t(`tabsPokemon.tabs.${radio.value}.name`)}</S.TextTab>
               {tabSelect === radio.value && <S.ImageBackgroundTab source={Pokeball} /> }
             </S.BoxTab>
           ))}
@@ -158,27 +162,23 @@ export function ProfilePokemon() {
             <S.ContentCharacteristics> 
               <S.SectionCharacteristics>
                 <S.TitleSection type={typeMain}>
-                  Pokédex Data
+                {t('tabsPokemon.tabs.about.sections.pokedex')}
                 </S.TitleSection>
 
                 <S.BoxCharacteristic>
-                  <S.LabelCharacteristic>Species</S.LabelCharacteristic>
-                  <S.Characteristic>Seed Pokemon</S.Characteristic>
-                </S.BoxCharacteristic>
-                <S.BoxCharacteristic>
-                  <S.LabelCharacteristic>Height</S.LabelCharacteristic>
+                  <S.LabelCharacteristic>{t('pokemons.height')}</S.LabelCharacteristic>
                   <S.Characteristic>{formatterHeight(pokemonSelect?.height)}m</S.Characteristic>
                 </S.BoxCharacteristic>
                 <S.BoxCharacteristic>
-                  <S.LabelCharacteristic>Weight</S.LabelCharacteristic>
+                  <S.LabelCharacteristic>{t('pokemons.weight')}</S.LabelCharacteristic>
                   <S.Characteristic>{formatterWeight(pokemonSelect?.weight)}kg</S.Characteristic>
                 </S.BoxCharacteristic>
                 <S.BoxCharacteristic>
-                  <S.LabelCharacteristic>Abilities</S.LabelCharacteristic>
+                  <S.LabelCharacteristic>{t('pokemons.abilities')}</S.LabelCharacteristic>
                   <S.Characteristic>1. {pokemonSelect?.abilities[0].ability.name}</S.Characteristic>
                 </S.BoxCharacteristic>
                 <S.BoxCharacteristic>
-                  <S.LabelCharacteristic>Weaknesses</S.LabelCharacteristic>
+                  <S.LabelCharacteristic>{t('pokemons.weaknesses')}</S.LabelCharacteristic>
                   <FlatList 
                     data={pokemonSelect?.weaknesses}
                     keyExtractor={item => item.name}
@@ -196,19 +196,19 @@ export function ProfilePokemon() {
             <S.ContentCharacteristics> 
               <S.SectionCharacteristics>
                 <S.TitleSection type={typeMain}>
-                  Base Stats
+                  {t('tabsPokemon.tabs.stats.sections.base_stats')}
                 </S.TitleSection>
 
                 <S.BoxCharacteristic>
-                  <S.LabelCharacteristic>HP</S.LabelCharacteristic>
+                  <S.LabelCharacteristic>{t('pokemons.hp')}</S.LabelCharacteristic>
                   <S.Characteristic>{pokemonSelect?.base_hp}</S.Characteristic>
                 </S.BoxCharacteristic>
                 <S.BoxCharacteristic>
-                  <S.LabelCharacteristic>Attack</S.LabelCharacteristic>
+                  <S.LabelCharacteristic>{t('pokemons.attack')}</S.LabelCharacteristic>
                   <S.Characteristic>{pokemonSelect?.base_attack}</S.Characteristic>
                 </S.BoxCharacteristic>
                 <S.BoxCharacteristic>
-                  <S.LabelCharacteristic>Desense</S.LabelCharacteristic>
+                  <S.LabelCharacteristic>{t('pokemons.defense')}</S.LabelCharacteristic>
                   <S.Characteristic>{pokemonSelect?.base_defense}</S.Characteristic>
                 </S.BoxCharacteristic>
               </S.SectionCharacteristics>

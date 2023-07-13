@@ -1,0 +1,52 @@
+{
+  "translation": {
+    "header": {
+      "subtitle": "Search for Pokémon by name or using the National Pokédex number.",
+      "placeholder": "What Pokémon are you looking for?"
+    },
+    "tabsPokemon": {
+      "tabs": {
+        "about": {
+          "name": "About",
+          "sections": {
+            "pokédex": "Pokédex Data"
+          }
+        },
+        "stats": {
+          "name": "Stats",
+          "sections": {
+            "base_stats": "Base Stats"
+          }
+        }
+      }
+    },
+    "pokemons": {
+      "height": "Height",
+      "weight": "Weight",
+      "abilities": "Abilities",
+      "weaknesses": "Weaknesses",
+      "hp": "HP",
+      "attack": "Attack",
+      "defense": "Defense",
+      "types": {
+        "grass": "grass",
+        "fire": "fire",
+        "poison": "poison",
+        "water": "water",
+        "normal": "normal",
+        "bug": "bug",
+        "ground": "ground",
+        "fighting": "fighting",
+        "fairy": "fairy",
+        "electric": "electric",
+        "flying": "flying",
+        "psychic": "psychic",
+        "rock": "rock",
+        "ghost": "ghost",
+        "ice": "ice",
+        "dragon": "dragon",
+        "steel": "steel"
+      }
+    }
+  }
+}

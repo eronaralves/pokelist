@@ -12,7 +12,8 @@ import {
   Lightning,
   Butterfly,
   HandEye,
-  Snowflake
+  Snowflake,
+  Nut
 } from 'phosphor-react-native';
 
 
@@ -40,6 +41,7 @@ export interface Types {
   ghost: TypeProps;
   ice: TypeProps;
   dragon: TypeProps;
+  steel: TypeProps;
 };
 
 
@@ -123,5 +125,10 @@ export const POKEMON_TYPES = {
     background: '#8d81f4',
     color: '#554baf',
     icon: <Snowflake size={18} color='#fff' weight='fill'  />
+  },
+  steel: {
+    background: '#68A090',
+    color: '#81c6b3',
+    icon: <Nut size={18} color='#fff' weight='fill'  />
   }
 } as Types

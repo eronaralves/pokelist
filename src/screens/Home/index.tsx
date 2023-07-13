@@ -1,3 +1,4 @@
+
 import { useEffect, useState, useCallback, useContext } from 'react';
 import {
   FlatList,
@@ -8,6 +9,9 @@ import { useNavigation } from '@react-navigation/native';
 
 import { AppContext } from '@context/AppContext';
 import { debounce } from "lodash";
+
+// I18n
+import { useTranslation } from 'react-i18next'
 
 // Images
 import PokeBall from '@assets/images/Pokeball.png';
@@ -31,6 +35,7 @@ export function Home() {
   
   const { isDarkMode } = useContext(AppContext)
   const navigation = useNavigation();
+  const { t, i18n } = useTranslation()
 
   function handleSendToProfile(id: number) {
     navigation.navigate('pokemon', { id })
@@ -39,19 +44,17 @@ export function Home() {
   const handleFilterPokemon = useCallback(
     debounce(value => {
       const filtered = pokemons
-        .filter((pokemon) => pokemon.name.startsWith(value))
+        .filter((pokemon) => pokemon.name.startsWith(value) || pokemon.numberPokedex.startsWith(value) )
       
       setFilteredPokemons(filtered);
     }, 300),
     [filteredPokemons],
   );
 
-
   function onChangeText(value: string) {
     setSearchPokemon(value);
     handleFilterPokemon(value);
   };
-
 
   async function fecthPokemons() {
     const responsePokemons = await PokeApi.Pokemon.list(150)
@@ -83,6 +86,8 @@ export function Home() {
     fecthPokemons()
   }, [])
 
+  console.log(t('pre'))
+
   return (
     <S.Container>
       <S.Header>
@@ -94,9 +99,9 @@ export function Home() {
           />
         )}
         <S.Title>Pokédex</S.Title>
-        <S.Description>Search for Pokémon by name or using the National Pokédex number.</S.Description>
+        <S.Description>{t('header.subtitle')}</S.Description>
         <Input 
-          placeholder='What Pokémon are you looking for?'
+          placeholder={t('header.placeholder')}
           onChangeText={onChangeText}
           value={searchPokemon}
         />

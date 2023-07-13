@@ -1,3 +1,4 @@
+import './src/i18n/index'
 import React, { useContext } from 'react';
 import { AppContext, AppContextProvider } from '@context/AppContext';
 
