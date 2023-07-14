@@ -149,7 +149,7 @@ export function ProfilePokemon() {
         <S.ContainerTabs>
           {radioButtonsData.map(radio => (
             <S.BoxTab key={radio.value} onPress={() => setTabSelect(radio.value)}>
-              <S.TextTab isSelect={tabSelect === radio.value}>{t(`tabsPokemon.tabs.${radio.value}.name`)}</S.TextTab>
+              <S.TextTab isSelect={tabSelect === radio.value}>{t(`tabsPokemon.${radio.value}.text`)}</S.TextTab>
               {tabSelect === radio.value && <S.ImageBackgroundTab source={Pokeball} /> }
             </S.BoxTab>
           ))}
@@ -162,7 +162,7 @@ export function ProfilePokemon() {
             <S.ContentCharacteristics> 
               <S.SectionCharacteristics>
                 <S.TitleSection type={typeMain}>
-                {t('tabsPokemon.tabs.about.sections.pokedex')}
+                {t('tabsPokemon.about.sections.pokedex')}
                 </S.TitleSection>
 
                 <S.BoxCharacteristic>
@@ -196,7 +196,7 @@ export function ProfilePokemon() {
             <S.ContentCharacteristics> 
               <S.SectionCharacteristics>
                 <S.TitleSection type={typeMain}>
-                  {t('tabsPokemon.tabs.stats.sections.base_stats')}
+                  {t('tabsPokemon.stats.sections.base_stats')}
                 </S.TitleSection>
 
                 <S.BoxCharacteristic>

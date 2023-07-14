@@ -1,23 +1,23 @@
-
 {
   "translation": {
     "header": {
       "subtitle": "Pesquise Pokémon pelo nome ou usando o número National Pokédex.",
       "placeholder": "Qual pokémon você está procurando?"
     },
+    "listPokemons":{
+      "listEmpty": "Nenhum pokemon encontrado!"
+    },
     "tabsPokemon": {
-      "tabs": {
-        "about": {
-          "name": "Sobre",
-          "sections": {
-            "pokedex": "Pokédex"
-          }
-        },
-        "stats": {
-          "name": "Estatísticas",
-          "sections": {
-            "base_stats": "Estatísticas básicas"
-          }
+      "about": {
+        "text": "Sobre",
+        "sections": {
+          "pokedex": "Pokédex"
+        }
+      },
+      "stats": {
+        "text": "Estatísticas",
+        "sections": {
+          "base_stats": "Estatísticas básicas"
         }
       }
     },

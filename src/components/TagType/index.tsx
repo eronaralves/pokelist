@@ -17,7 +17,7 @@ interface TagTypeProps extends TypeProps {
 
 export function TagType({ type, noText = false }: TagTypeProps) {
   const { t, i18n } = useTranslation()
-  console.log(type)
+
   return (
     <S.Type type={type}>
       {POKEMON_TYPES[type]?.icon}

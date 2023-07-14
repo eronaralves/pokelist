@@ -4,26 +4,27 @@
       "subtitle": "Search for Pokémon by name or using the National Pokédex number.",
       "placeholder": "What Pokémon are you looking for?"
     },
+    "listPokemons":{
+      "listEmpty": "No pokemon found!"
+    },
     "tabsPokemon": {
-      "tabs": {
-        "about": {
-          "name": "About",
-          "sections": {
-            "pokedex": "Pokédex Data"
-          }
-        },
-        "stats": {
-          "name": "Stats",
-          "sections": {
-            "base_stats": "Base Stats"
-          }
+      "about": {
+        "text": "About",
+        "sections": {
+          "pokedex": "Pokédex Data"
+        }
+      },
+      "stats": {
+        "text": "Stats",
+        "sections": {
+          "base_stats": "Base Stats"
         }
       }
     },
-    "pokemons": {
+    "pokemons": { 
       "height": "Height",
       "weight": "Weight",
-      "abilities": "Abilities",
+      "abilities": "Abilities", 
       "weaknesses": "Weaknesses",
       "hp": "HP",
       "attack": "Attack",

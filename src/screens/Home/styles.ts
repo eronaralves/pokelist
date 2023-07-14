@@ -51,6 +51,10 @@ export const Content = styled.View`
   padding: 0px 20px 0px 20px;
 `;
 
+export const TextListEmpty = styled.Text`
+  text-align: center;
+`;
+
 export const Title = styled.Text`
   ${({ theme }) => css`
     font-family: ${theme.font_family.bold};
