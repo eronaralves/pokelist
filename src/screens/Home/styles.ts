@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components/native";
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { TouchableOpacity } from 'react-native'
 
 
 export const Container = styled(SafeAreaView)`
@@ -10,8 +11,34 @@ export const Container = styled(SafeAreaView)`
 
 export const Header = styled.ImageBackground`
   position: relative;
-  padding: 100px 20px 0px 20px;
+  padding: 0px 20px 0px 20px;
   margin-bottom: 30px;
+`;
+
+export const HeadingIcons = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+`;
+
+export const ButtonIconLaguage = styled(TouchableOpacity)`
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+`
+
+export const ImageIconLaguage = styled.Image`
+  width: 40px;
+  height: 40px;
+`;
+
+export const TextLaguage = styled.Text`
+  ${({ theme }) => css`
+    font-family: ${theme.font_family.bold};
+    font-size: ${theme.font_size.md}px;
+    color: ${theme.colors.heading};
+  `}
 `;
 
 export const ImageHeaderBackground = styled.Image`
@@ -24,6 +51,10 @@ export const Content = styled.View`
   padding: 0px 20px 0px 20px;
 `;
 
+export const TextListEmpty = styled.Text`
+  text-align: center;
+`;
+
 export const Title = styled.Text`
   ${({ theme }) => css`
     font-family: ${theme.font_family.bold};
@@ -32,6 +63,7 @@ export const Title = styled.Text`
   `};
 
   margin-bottom: 10px;
+  margin-top: 50px;
 `;
 
 export const Description = styled.Text`

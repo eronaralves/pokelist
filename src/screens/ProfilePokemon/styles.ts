@@ -80,6 +80,7 @@ export const BoxTab = styled(TouchableOpacity)`
   
   justify-content: center;
   align-items: center;
+  position: relative;  
 `;
 
 export const TextTab = styled.Text<TabProps>`
@@ -94,11 +95,11 @@ export const TextTab = styled.Text<TabProps>`
 `;
 
 export const ImageBackgroundTab = styled.Image`
-  width: 100px;
+  width: 120px;
   position: absolute;
   top: 0px;
   left: 50%;
-  transform: translateX(-50px);
+  transform: translateX(-60px);
 `;
 
 export const ContainerCharacteristics = styled.View<TypeProps>`
@@ -130,6 +131,8 @@ export const SectionCharacteristics = styled.View`
 
 export const TitleSection = styled(Text)<TypeProps>`
   margin-bottom: 6px;
+  text-transform: capitalize;
+
   ${({ theme, type }) => css`
     font-family: ${theme.font_family.bold};
     font-size: ${theme.font_size.md}px;

@@ -1,0 +1,53 @@
+{
+  "translation": {
+    "header": {
+      "subtitle": "Pesquise Pokémon pelo nome ou usando o número National Pokédex.",
+      "placeholder": "Qual pokémon você está procurando?"
+    },
+    "listPokemons":{
+      "listEmpty": "Nenhum pokemon encontrado!"
+    },
+    "tabsPokemon": {
+      "about": {
+        "text": "Sobre",
+        "sections": {
+          "pokedex": "Pokédex"
+        }
+      },
+      "stats": {
+        "text": "Estatísticas",
+        "sections": {
+          "base_stats": "Estatísticas básicas"
+        }
+      }
+    },
+    "pokemons": {
+      "height": "Altura",
+      "weight": "Peso",
+      "abilities": "Abilidades",
+      "weaknesses": "Fraquezas",
+      "hp": "Vida",
+      "attack": "Ataque",
+      "defense": "Defesa",
+      "types": {
+        "grass": "grama",
+        "fire": "fogo",
+        "poison": "veneno",
+        "water": "água",
+        "normal": "normal",
+        "bug": "inseto",
+        "ground": "terra",
+        "fighting": "lutador",
+        "fairy": "fada",
+        "electric": "eletrico",
+        "flying": "voador",
+        "psychic": "psíquico",
+        "rock": "pedra",
+        "ghost": "fantasma",
+        "ice": "gelo",
+        "dragon": "dragão",
+        "steel": "aço"
+      }
+    }
+  }
+}
