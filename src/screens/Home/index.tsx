@@ -31,6 +31,7 @@ export function Home() {
   const [pokemons, setPokemons] = useState<PokemonCard[]>([]);
   const [filteredPokemons, setFilteredPokemons] = useState<PokemonCard[]>(pokemons);
   const [searchPokemon, setSearchPokemon] = useState('');
+  const [loading, setLoading] = useState(false);
   
   const { isDarkMode } = useContext(AppContext)
   const navigation = useNavigation();
@@ -64,6 +65,7 @@ export function Home() {
     const promises = responsePokemons.results.map(item => PokeApi.Pokemon.resolve(item.name))
     
     try {
+      setLoading(true)
       const responses = await Promise.all(promises)
       const dataDetails = responses.map(item => {
         const pokemon:PokemonCard = {
@@ -79,10 +81,10 @@ export function Home() {
 
       setPokemons(dataDetails);
       setFilteredPokemons(dataDetails);
-    
+      setLoading(false)
     } catch(err){
       console.log(err)
-    }
+    } 
   }
 
   useEffect(() => {
@@ -122,7 +124,7 @@ export function Home() {
       </S.Header>      
       
       <S.Content>
-        {pokemons.length > 0 ? (
+        {!loading ? (
           <FlatList
             data={filteredPokemons}
             keyExtractor={pokemon => pokemon.name}
