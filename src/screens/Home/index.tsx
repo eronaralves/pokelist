@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback, useContext } from 'react';
 import {
   FlatList,
-  Text,
   ActivityIndicator
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -11,7 +10,6 @@ import { debounce } from "lodash";
 
 // I18n
 import { useTranslation } from 'react-i18next'
-import { Namespace, TFunction } from 'i18next';
 
 // Images
 import PokeBall from '@assets/images/Pokeball.png';
@@ -28,43 +26,6 @@ import { Input } from '@components/Input';
 
 // PokeApi
 import PokeApi from 'pokeapi-typescript';
-import { pt } from '@i18n/pt';
-
-// Interfaces
-
-type TranslationKeys = {
-  header: {
-    subtitle: string;
-    placeholder: string;
-  },
-  listPokemons: {
-    listEmpty: string;
-  },
-  tabsPokemon: {
-    about: {
-      name: string;
-      sections: {
-        pokedex: string;
-      }
-    }
-    stats: {
-      name: string;
-      sections: {
-        base_stats: string;
-      }
-    },
-  }
-  pokemons: {
-    height: string,
-    weight: string,
-    abilities: string,
-    weaknesses: string,
-    hp: string,
-    attack: string,
-    defense: string,
-    types: any
-  }
-}
 
 export function Home() {
   const [pokemons, setPokemons] = useState<PokemonCard[]>([]);
