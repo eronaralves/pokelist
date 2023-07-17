@@ -14,15 +14,6 @@ import { Routes } from '@routes/index';
 
 
 export default function App() {
-
-  return (
-    <AppContextProvider>
-      <AppContent />
-    </AppContextProvider>
-  );
-}
-
-function AppContent() {
   const { isDarkMode } = useContext(AppContext);
 
   const [fontsLoaded] = useFonts({
@@ -32,14 +23,16 @@ function AppContent() {
   });
 
   return (
-    <ThemeProvider theme={isDarkMode ? darkTheme : defaultTheme}>
-      <StatusBar 
-        barStyle={isDarkMode ? "light-content" : "dark-content" }
-        backgroundColor="transparent"
-        translucent
-      />
-      {fontsLoaded ? <Routes /> : <View/>}
-    </ThemeProvider>
+    <AppContextProvider>
+      <ThemeProvider theme={isDarkMode ? darkTheme : defaultTheme}>
+        <StatusBar 
+          barStyle={isDarkMode ? "light-content" : "dark-content" }
+          backgroundColor="transparent"
+          translucent
+        />
+        {fontsLoaded ? <Routes /> : <View/>}
+      </ThemeProvider>
+    </AppContextProvider>
   );
 }
 

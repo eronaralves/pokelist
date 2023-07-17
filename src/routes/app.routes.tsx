@@ -8,13 +8,16 @@ const { Navigator, Screen } = createNativeStackNavigator();
 
 export function AppRoutes() {
   return (
-    <Navigator screenOptions={{ headerShown: false }}>
+    <Navigator screenOptions={{ headerShown: false, }} >
       <Screen
         name='home'
         component={Home}
       />
 
       <Screen
+        options={{
+          presentation: 'modal',
+        }}
         name='pokemon'
         component={ProfilePokemon}
       />

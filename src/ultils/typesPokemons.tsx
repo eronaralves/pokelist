@@ -16,14 +16,12 @@ import {
   Nut
 } from 'phosphor-react-native';
 
-
 // Interfaces
 interface TypeProps {
   background: string;
   color: string;
   icon: ReactNode;
 };
-
 
 export interface Types {
   poison: TypeProps;
@@ -43,7 +41,6 @@ export interface Types {
   dragon: TypeProps;
   steel: TypeProps;
 };
-
 
 export const POKEMON_TYPES = {
   poison: {
