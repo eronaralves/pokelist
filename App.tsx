@@ -7,7 +7,6 @@ import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@
 
 // Theme
 import { ThemeProvider } from 'styled-components/native';
-import { defaultTheme, darkTheme } from '@theme/index';
 
 // Routes
 import { Routes } from '@routes/index';
@@ -24,14 +23,12 @@ export default function App() {
 
   return (
     <AppContextProvider>
-      <ThemeProvider theme={isDarkMode ? darkTheme : defaultTheme}>
-        <StatusBar 
-          barStyle={isDarkMode ? "light-content" : "dark-content" }
-          backgroundColor="transparent"
-          translucent
-        />
-        {fontsLoaded ? <Routes /> : <View/>}
-      </ThemeProvider>
+      <StatusBar
+        barStyle={isDarkMode ? "light-content" : "dark-content" }
+        backgroundColor="transparent"
+        translucent
+      />
+      {fontsLoaded ? <Routes /> : <View/>}
     </AppContextProvider>
   );
 }

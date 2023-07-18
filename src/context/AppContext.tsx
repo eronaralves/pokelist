@@ -1,8 +1,10 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { defaultTheme, darkTheme } from '@theme/index';
 
 // Storage
 import { changeTheme } from "@storage/changeTheme";
 import { getThemeCurrent } from "@storage/getThemeCurrent";
+import { ThemeProvider } from "styled-components/native";
 
 // Interfaces
 interface AppContextProps {
@@ -40,7 +42,9 @@ export function AppContextProvider({ children }: AppContextProviderProps) {
 
   return (
     <AppContext.Provider value={{ isDarkMode, handleChangeTheme }}>
-      {children}
+      <ThemeProvider theme={!isDarkMode ? defaultTheme : darkTheme}>
+        {children}
+      </ThemeProvider>
     </AppContext.Provider>
   )
 }
