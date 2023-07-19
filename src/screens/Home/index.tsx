@@ -1,6 +1,7 @@
 
 // i18n
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
+
 
 // Styles
 import * as S from './styles';
@@ -10,6 +11,8 @@ import { Header } from '@components/Header';
 import { ListPokemons } from '@components/ListPokemons';
 
 export function Home() {
+  const { t } = useTranslation()
+
   return (
     <S.Container> 
       <Header 
