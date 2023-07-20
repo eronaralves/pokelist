@@ -15,6 +15,8 @@ import * as S from './styles'
 
 // PokeApi
 import PokeApi from 'pokeapi-typescript';
+import { api } from '../../lib/axios'
+import axios from 'axios'
 
 
 export function ListPokemons() {
@@ -47,19 +49,19 @@ export function ListPokemons() {
   };
 
   async function fecthPokemons() {
-    const responsePokemons = await PokeApi.Pokemon.list(150)
-    const promises = responsePokemons.results.map(item => PokeApi.Pokemon.resolve(item.name))
-    
     try {
       setLoading(true)
-      const responses = await Promise.all(promises)
-      const dataDetails = responses.map(item => {
+      const responsePokemons = await api.get('pokemon?offset=0&limit=150')
+      const promiseDetails = responsePokemons.data.results.map((item: any) => api.get(`pokemon/${item.name}`))
+
+      const details = await Promise.all(promiseDetails)
+      const dataDetails = details.map(item => {
         const pokemon:PokemonCard = {
-          id: item.id,
-          name: item.name,
-          image: item.sprites.other['official-artwork'].front_default,
-          numberPokedex: String(item.id),
-          types: item.types as TypesPokemonProps[]
+          id: item.data.id,
+          name: item.data.name,
+          image: item.data.sprites.other['official-artwork'].front_default,
+          numberPokedex: String(item.data.id),
+          types: item.data.types as TypesPokemonProps[]
         }
 
         return pokemon
@@ -107,7 +109,6 @@ export function ListPokemons() {
               flex: 1,
               justifyContent: 'center',
               alignItems: 'center',
-              
             }
           }
           showsVerticalScrollIndicator={false}
@@ -117,7 +118,6 @@ export function ListPokemons() {
           <ActivityIndicator />
         </S.ContainerLoading>
       )}
-        
     </S.Container>
   )
 }
