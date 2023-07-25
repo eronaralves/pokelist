@@ -13,11 +13,8 @@ import { Input } from '@components/Input'
 // Styles
 import * as S from './styles'
 
-// PokeApi
-import PokeApi from 'pokeapi-typescript';
+// axios
 import { api } from '../../lib/axios'
-import axios from 'axios'
-
 
 export function ListPokemons() {
   const [pokemons, setPokemons] = useState<PokemonCard[]>([]);
