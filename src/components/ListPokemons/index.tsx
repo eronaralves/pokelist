@@ -49,7 +49,7 @@ export function ListPokemons() {
     try {
       setLoading(true)
       const responsePokemons = await api.get('pokemon?offset=0&limit=150')
-      const promiseDetails = responsePokemons.data.results.map((item: any) => api.get(`pokemon/${item.name}`))
+      const promiseDetails = await responsePokemons.data.results.map((item: any) => api.get(`pokemon/${item.name}`))
 
       const details = await Promise.all(promiseDetails)
       const dataDetails = details.map(item => {
